@@ -37,7 +37,11 @@ export default async function CharactersPage() {
             {character.image && (
 
               <img
-                src={`${API_URL}/${character.image}`}
+                src={
+                  character.image?.startsWith("http")
+                    ? character.image
+                    : `${API_URL}/${character.image}`
+                }
                 className="w-full h-80 object-cover"
               />
 

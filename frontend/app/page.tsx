@@ -37,7 +37,7 @@ export default async function Home() {
             {record.screenshot && (
 
               <img
-                src={`http://127.0.0.1:8000/${record.screenshot}`}
+                src={`${API_URL}/${record.screenshot}`}
                 alt="Screenshot"
                 className="w-full h-64 object-cover"
               />

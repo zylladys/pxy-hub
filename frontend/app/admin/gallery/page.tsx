@@ -188,7 +188,11 @@ export default function GalleryAdmin() {
     >
 
       <img
-        src={`${API_URL}/${art.image}`}
+        src={
+          art.image?.startsWith("http")
+            ? art.image
+            : `${API_URL}/${art.image}`
+        }
         className="w-full h-72 object-cover"
       />
 

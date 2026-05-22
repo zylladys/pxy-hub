@@ -28,22 +28,22 @@ export default async function CharacterPage({
   params
 }: any) {
 
-  const character = await getCharacter(
+  const art = await getCharacter(
     (await params).slug
   )
 
   const gallery = await getGallery(
-    character.id
+    art.id
   )
 
   return (
 
     <main className="min-h-screen bg-zinc-900 text-white">
 
-      {character.image && (
+      {art.image && (
 
         <img
-          src={`${API_URL}/${character.image}`}
+          src={`${API_URL}/${art.image}`}
           className="w-full h-[500px] object-cover"
         />
 
@@ -52,11 +52,11 @@ export default async function CharacterPage({
       <div className="p-10">
 
         <h1 className="text-6xl font-bold mb-4">
-          {character.name}
+          {art.name}
         </h1>
 
         <p className="text-zinc-400 mb-10">
-          {character.universe}
+          {art.universe}
         </p>
 
         <div className="space-y-8 mb-16">
@@ -68,7 +68,7 @@ export default async function CharacterPage({
             </h2>
 
             <p className="text-zinc-300">
-              {character.description}
+              {art.description}
             </p>
 
           </div>
@@ -80,7 +80,7 @@ export default async function CharacterPage({
             </h2>
 
             <p className="text-zinc-300">
-              {character.personality}
+              {art.personality}
             </p>
 
           </div>
@@ -103,7 +103,11 @@ export default async function CharacterPage({
               >
 
                 <img
-                  src={`${API_URL}/${art.image}`}
+                  src={
+                    art.image?.startsWith("http")
+                      ? art.image
+                      : `${API_URL}/${art.image}`
+                  }
                   className="w-full h-72 object-cover"
                 />
 
