@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from .database import Base
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 class Record(Base):
     __tablename__ = "records"
@@ -16,13 +18,24 @@ class Record(Base):
 
 
 class Character(Base):
+
     __tablename__ = "characters"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    name = Column(String, unique=True)
+    name = Column(
+        String,
+        unique=True
+    )
 
-    slug = Column(String, unique=True)
+    slug = Column(
+        String,
+        unique=True
+    )
 
     description = Column(String)
 
@@ -30,18 +43,35 @@ class Character(Base):
 
     universe = Column(String)
 
-    image = Column(String, nullable=True)
+    image = Column(
+        String,
+        nullable=True
+    )
 
-from sqlalchemy import ForeignKey
+    arts = relationship(
+        "CharacterArt",
+        back_populates="character",
+        cascade="all, delete-orphan"
+    )
+
+
 
 class CharacterArt(Base):
+
     __tablename__ = "character_arts"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
     character_id = Column(
         Integer,
-        ForeignKey("characters.id")
+        ForeignKey(
+            "characters.id",
+            ondelete="CASCADE"
+        )
     )
 
     title = Column(String)
@@ -49,6 +79,11 @@ class CharacterArt(Base):
     description = Column(String)
 
     image = Column(String)
+
+    character = relationship(
+        "Character",
+        back_populates="arts"
+    )
 
 class User(Base):
     __tablename__ = "users"
