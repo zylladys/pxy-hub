@@ -46,6 +46,11 @@ os.makedirs(
     exist_ok=True
 )
 
+os.makedirs(
+    "uploads/characters",
+    exist_ok=True
+)
+
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 app.include_router(records_router)
