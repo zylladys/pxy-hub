@@ -1,5 +1,6 @@
 "use client"
 
+import { API_URL } from "@/lib/api"
 import { useState } from "react"
 
 export default function AddRecordForm() {
@@ -33,7 +34,7 @@ export default function AddRecordForm() {
     }
 
     const response = await fetch(
-      "http://127.0.0.1:8000/records",
+      `${API_URL}/records`,
       {
         method: "POST",
 

@@ -1,7 +1,9 @@
+import { API_URL } from "@/lib/api"
+
 async function getCharacters() {
 
   const res = await fetch(
-    "http://127.0.0.1:8000/characters",
+    `${API_URL}/characters`,
     {
       cache: "no-store"
     }
@@ -35,7 +37,7 @@ export default async function CharactersPage() {
             {character.image && (
 
               <img
-                src={`http://127.0.0.1:8000/${character.image}`}
+                src={`${API_URL}/${character.image}`}
                 className="w-full h-80 object-cover"
               />
 

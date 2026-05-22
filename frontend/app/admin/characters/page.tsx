@@ -1,5 +1,6 @@
 "use client"
 
+import { API_URL } from "@/lib/api"
 import {
   useEffect,
   useState
@@ -31,7 +32,7 @@ export default function AdminCharacters() {
   async function loadCharacters() {
 
     const res = await fetch(
-      "http://127.0.0.1:8000/characters"
+      `${API_URL}/characters`
     )
 
     const data = await res.json()
@@ -73,7 +74,7 @@ export default function AdminCharacters() {
     }
 
     const response = await fetch(
-      "http://127.0.0.1:8000/characters",
+      `${API_URL}/characters`,
       {
         method: "POST",
 
@@ -111,7 +112,7 @@ export default function AdminCharacters() {
   if (!confirmDelete) return
 
   const response = await fetch(
-    `http://127.0.0.1:8000/characters/${id}`,
+    `${API_URL}/characters/${id}`,
     {
       method: "DELETE",
 
@@ -231,7 +232,7 @@ export default function AdminCharacters() {
             {character.image && (
 
               <img
-                src={`http://127.0.0.1:8000/${character.image}`}
+                src={`${API_URL}/${character.image}`}
                 className="w-full h-72 object-cover"
               />
 

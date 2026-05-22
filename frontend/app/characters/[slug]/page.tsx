@@ -1,7 +1,9 @@
+import { API_URL } from "@/lib/api"
+
 async function getCharacter(slug: string) {
 
   const res = await fetch(
-    `http://127.0.0.1:8000/characters/${slug}`,
+    `${API_URL}/characters/${slug}`,
     {
       cache: "no-store"
     }
@@ -13,7 +15,7 @@ async function getCharacter(slug: string) {
 async function getGallery(id: number) {
 
   const res = await fetch(
-    `http://127.0.0.1:8000/gallery/${id}`,
+    `${API_URL}/gallery/${id}`,
     {
       cache: "no-store"
     }
@@ -41,7 +43,7 @@ export default async function CharacterPage({
       {character.image && (
 
         <img
-          src={`http://127.0.0.1:8000/${character.image}`}
+          src={`${API_URL}/${character.image}`}
           className="w-full h-[500px] object-cover"
         />
 
@@ -101,7 +103,7 @@ export default async function CharacterPage({
               >
 
                 <img
-                  src={`http://127.0.0.1:8000/${art.image}`}
+                  src={`${API_URL}/${art.image}`}
                   className="w-full h-72 object-cover"
                 />
 

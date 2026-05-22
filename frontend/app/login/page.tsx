@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { API_URL } from "@/lib/api"
 
 export default function LoginPage() {
 
@@ -20,7 +21,7 @@ export default function LoginPage() {
     e.preventDefault()
 
     const response = await fetch(
-      "http://127.0.0.1:8000/login",
+      `${API_URL}/login`,
       {
         method: "POST",
 

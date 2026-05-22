@@ -1,5 +1,6 @@
 "use client"
 
+import { API_URL } from "@/lib/api"
 import {
   useEffect,
   useState
@@ -28,7 +29,7 @@ export default function GalleryAdmin() {
   async function loadCharacters() {
 
     const res = await fetch(
-      "http://127.0.0.1:8000/characters"
+      `${API_URL}/characters`
     )
 
     const data = await res.json()
@@ -65,7 +66,7 @@ export default function GalleryAdmin() {
     }
 
     const response = await fetch(
-      "http://127.0.0.1:8000/gallery",
+      `${API_URL}/gallery`,
       {
         method: "POST",
 
@@ -187,7 +188,7 @@ export default function GalleryAdmin() {
     >
 
       <img
-        src={`http://127.0.0.1:8000/${art.image}`}
+        src={`${API_URL}/${art.image}`}
         className="w-full h-72 object-cover"
       />
 
@@ -221,7 +222,7 @@ async function loadGallery(
   if (!characterId) return
 
   const res = await fetch(
-    `http://127.0.0.1:8000/gallery/${characterId}`
+    `${API_URL}/gallery/${characterId}`
   )
 
   const data = await res.json()
