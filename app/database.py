@@ -11,17 +11,16 @@ DATABASE_URL = os.getenv(
     "DATABASE_URL"
 )
 
-if DATABASE_URL.startswith(
-    "postgres://"
-):
+if DATABASE_URL:
+
     DATABASE_URL = DATABASE_URL.replace(
         "postgres://",
-        "postgresql+psycopg2://",
-        1
+        "postgresql+psycopg2://"
     )
 
 engine = create_engine(
-    DATABASE_URL
+    DATABASE_URL,
+    pool_pre_ping=True
 )
 
 SessionLocal = sessionmaker(
