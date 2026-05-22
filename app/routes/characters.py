@@ -1,5 +1,7 @@
 from fastapi import Depends
 from ..dependencies import get_current_user
+import cloudinary.uploader
+
 
 import shutil
 
@@ -14,6 +16,7 @@ from sqlalchemy.orm import Session
 
 from ..database import SessionLocal
 from ..models import Character
+from app.cloudinary_config import *
 
 router = APIRouter()
 
@@ -87,13 +90,15 @@ async def create_character(
             f"{UPLOAD_DIR}/{image.filename}"
         )
 
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(
-                image.file,
-                buffer
-            )
+        result = cloudinary.uploader.upload(
+    image.file,
 
-        image_path = file_path
+    folder="pxy-hub/characters"
+)
+
+image_url = result["secure_url"]
+
+        image=image_url
 
     character = Character(
         name=name,
