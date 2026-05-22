@@ -91,14 +91,14 @@ async def create_character(
         )
 
         result = cloudinary.uploader.upload(
-    image.file,
+            image.file,
 
-    folder="pxy-hub/characters"
-)
+            folder="pxy-hub/characters"
+    )
 
-image_url = result["secure_url"]
+    image_url = result["secure_url"]
 
-        image=image_url
+    image=image_url
 
     character = Character(
         name=name,
@@ -106,7 +106,7 @@ image_url = result["secure_url"]
         description=description,
         personality=personality,
         universe=universe,
-        image=image_path
+        image=image
     )
 
     db.add(character)
