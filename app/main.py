@@ -1,9 +1,7 @@
 import os
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import (
-    CORSMiddleware
-)
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .database import engine
@@ -28,8 +26,7 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
-        "http://localhost:3000",
-        "https://pxy-hub.vercel.app",
+        "*",
     ],
 
     allow_credentials=True,
