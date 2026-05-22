@@ -1,18 +1,12 @@
-import os
 
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-from sqlalchemy.orm import (
-    sessionmaker,
-    declarative_base
-)
-
-DATABASE_URL = os.getenv(
-    f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
-)
+DATABASE_URL = "sqlite:///./data/database.db"
 
 engine = create_engine(
-    DATABASE_URL
+    DATABASE_URL,
+    connect_args={"check_same_thread": False}
 )
 
 SessionLocal = sessionmaker(
@@ -20,6 +14,5 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
-
 
 Base = declarative_base()
