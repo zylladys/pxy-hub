@@ -8,7 +8,7 @@ from sqlalchemy.orm import (
 )
 
 DATABASE_URL = os.getenv(
-    "DATABASE_URL"
+    f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
 )
 
 engine = create_engine(
@@ -20,5 +20,6 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+
 
 Base = declarative_base()
