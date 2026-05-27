@@ -1,6 +1,10 @@
 import os
 import shutil
 
+import cloudinary.uploader
+
+from app.cloudinary_config import *
+
 from fastapi import (
     APIRouter,
     UploadFile,
@@ -51,13 +55,15 @@ async def add_record(
 
         file_path = f"{UPLOAD_DIR}/{screenshot.filename}"
 
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(
-                screenshot.file,
-                buffer
-            )
+        result = cloudinary.uploader.upload(
+        image.file,
 
-        screenshot_path = file_path
+        folder="pxy-hub/records"
+        )
+
+        image_url = result["secure_url"]
+
+        screenshot_path = image_url
 
     new_record = Record(
         plague=plague,
