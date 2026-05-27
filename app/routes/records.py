@@ -53,10 +53,8 @@ async def add_record(
 
     if screenshot:
 
-        file_path = f"{UPLOAD_DIR}/{screenshot.filename}"
-
         result = cloudinary.uploader.upload(
-        image.file,
+        screenshot.file,
 
         folder="pxy-hub/records"
         )
