@@ -232,11 +232,7 @@ export default function AdminCharacters() {
             {character.image && (
 
               <img
-                src={
-                  character.image?.startsWith("http")
-                    ? character.image
-                    : `${API_URL}/${character.image}`
-                }
+                src={character.image}
                 className="w-full h-72 object-cover"
               />
 

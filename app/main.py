@@ -1,8 +1,6 @@
-import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from .database import engine
 from .models import Base
@@ -35,23 +33,6 @@ app.add_middleware(
 
     allow_headers=["*"],
 )
-
-os.makedirs(
-    "uploads",
-    exist_ok=True
-)
-
-os.makedirs(
-    "uploads/gallery",
-    exist_ok=True
-)
-
-os.makedirs(
-    "uploads/characters",
-    exist_ok=True
-)
-
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 app.include_router(records_router)
 app.include_router(characters_router)

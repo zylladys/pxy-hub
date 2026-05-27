@@ -1,5 +1,4 @@
 import os
-import shutil
 
 import cloudinary.uploader
 
@@ -18,8 +17,6 @@ from ..database import SessionLocal
 from ..models import Record
 
 router = APIRouter()
-
-UPLOAD_DIR = "uploads/screenshots"
 
 @router.get("/records")
 def get_records():

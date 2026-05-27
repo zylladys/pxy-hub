@@ -2,9 +2,6 @@ from fastapi import Depends
 from ..dependencies import get_current_user
 import cloudinary.uploader
 
-
-import shutil
-
 from fastapi import (
     APIRouter,
     UploadFile,
@@ -19,8 +16,6 @@ from ..models import Character
 from app.cloudinary_config import *
 
 router = APIRouter()
-
-UPLOAD_DIR = "uploads/characters"
 
 @router.get("/characters")
 def get_characters():
@@ -85,10 +80,6 @@ async def create_character(
     image_path = None
 
     if image:
-
-        file_path = (
-            f"{UPLOAD_DIR}/{image.filename}"
-        )
 
         result = cloudinary.uploader.upload(
             image.file,

@@ -1,7 +1,8 @@
+import cloudinary.uploader
+from app.cloudinary_config import *
+
 from fastapi import Depends
 from ..dependencies import get_current_user
-
-import shutil
 
 from fastapi import (
     APIRouter,
@@ -18,8 +19,6 @@ from ..models import (
 )
 
 router = APIRouter()
-
-UPLOAD_DIR = "uploads/gallery"
 
 @router.get("/gallery/{character_id}")
 def get_gallery(character_id: int):
@@ -49,7 +48,7 @@ async def upload_art(
     current_user: str = Depends(
         get_current_user
     ),
-    
+
     character_id: int = Form(...),
     title: str = Form(...),
     description: str = Form(...),
@@ -58,21 +57,18 @@ async def upload_art(
 
     db: Session = SessionLocal()
 
-    file_path = (
-        f"{UPLOAD_DIR}/{image.filename}"
+    result = cloudinary.uploader.upload(
+    image.file,
+    folder="pxy-hub/gallery"
     )
 
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(
-            image.file,
-            buffer
-        )
-
+    image_url = result["secure_url"]
+    
     art = CharacterArt(
         character_id=character_id,
         title=title,
         description=description,
-        image=file_path
+        image=image_url
     )
 
     db.add(art)
