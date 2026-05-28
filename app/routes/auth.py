@@ -82,7 +82,10 @@ def login(data: dict):
         )
 
     token = create_access_token(
-        {"sub": user.username}
+        {
+            "sub": user.username,
+            "is_admin": user.is_admin
+        }
     )
 
     return {
@@ -101,12 +104,10 @@ def verify_token(token: str):
             algorithms=[ALGORITHM]
         )
 
-        username = payload.get("sub")
-
-        if username is None:
+        if payload.get("sub") is None:
             return None
 
-        return username
+        return payload
 
     except JWTError:
         return None

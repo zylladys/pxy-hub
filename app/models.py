@@ -85,6 +85,8 @@ class CharacterArt(Base):
         back_populates="arts"
     )
 
+from sqlalchemy import Boolean
+
 class User(Base):
     __tablename__ = "users"
 
@@ -94,3 +96,7 @@ class User(Base):
 
     password = Column(String)
 
+    is_admin = Column(
+        Boolean,
+        default=False
+    )

@@ -11,6 +11,10 @@ from fastapi import (
     Form
 )
 
+from ..dependencies import (
+    require_admin
+)
+
 from sqlalchemy.orm import Session
 
 from ..database import SessionLocal
@@ -45,9 +49,9 @@ def get_gallery(character_id: int):
 
 @router.post("/gallery")
 async def upload_art(
-    current_user: str = Depends(
-        get_current_user
-    ),
+    current_user = Depends(
+        require_admin
+    )
 
     character_id: int = Form(...),
     title: str = Form(...),
@@ -63,7 +67,7 @@ async def upload_art(
     )
 
     image_url = result["secure_url"]
-    
+
     art = CharacterArt(
         character_id=character_id,
         title=title,

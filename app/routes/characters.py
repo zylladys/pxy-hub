@@ -9,6 +9,10 @@ from fastapi import (
     Form
 )
 
+from ..dependencies import (
+    require_admin
+)
+
 from sqlalchemy.orm import Session
 
 from ..database import SessionLocal
@@ -63,9 +67,9 @@ def get_character(slug: str):
 
 @router.post("/characters")
 async def create_character(
-    current_user: str = Depends(
-    get_current_user
-),
+    current_user = Depends(
+        require_admin
+    )
 
     name: str = Form(...),
     slug: str = Form(...),
@@ -108,8 +112,8 @@ async def create_character(
 @router.delete("/characters/{id}")
 def delete_character(
     id: int,
-    current_user: str = Depends(
-        get_current_user
+    current_user = Depends(
+        require_admin
     )
 ):
 
@@ -134,8 +138,8 @@ def delete_character(
 async def update_character(
     id: int,
 
-    current_user: str = Depends(
-        get_current_user
+    current_user = Depends(
+        require_admin
     ),
 
     name: str = Form(...),

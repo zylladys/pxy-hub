@@ -36,13 +36,26 @@ def get_current_user(
             detail="Invalid authorization"
         )
 
-    username = verify_token(token)
+    payload = verify_token(token)
 
-    if not username:
+    if not payload:
 
         raise HTTPException(
             status_code=401,
             detail="Invalid token"
         )
 
-    return username
+    return payload
+
+def require_admin(
+    current_user = Depends(get_current_user)
+):
+
+    if not current_user.get("is_admin"):
+
+        raise HTTPException(
+            status_code=403,
+            detail="Admin only"
+        )
+
+    return current_user
