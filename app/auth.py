@@ -5,7 +5,8 @@ from datetime import (
 
 from jose import jwt
 
-SECRET_KEY = "SUPER_SECRET_KEY"
+import os
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALGORITHM = "HS256"
 
