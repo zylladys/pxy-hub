@@ -50,7 +50,7 @@ def verify_token(token: str):
         if username is None:
             return None
 
-        return username
+        return payload
 
     except JWTError:
         return None
