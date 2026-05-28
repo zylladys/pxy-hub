@@ -1,6 +1,7 @@
 from fastapi import (
     Header,
-    HTTPException
+    HTTPException,
+    Depends
 )
 
 from .auth import verify_token
@@ -48,7 +49,7 @@ def get_current_user(
     return payload
 
 def require_admin(
-    current_user = Depends(get_current_user)
+    current_user = Depends(get_current_user),
 ):
 
     if not current_user.get("is_admin"):
