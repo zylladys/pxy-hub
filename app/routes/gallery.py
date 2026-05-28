@@ -51,7 +51,7 @@ def get_gallery(character_id: int):
 async def upload_art(
     current_user = Depends(
         require_admin
-    )
+    ),
 
     character_id: int = Form(...),
     title: str = Form(...),

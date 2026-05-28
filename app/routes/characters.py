@@ -69,7 +69,7 @@ def get_character(slug: str):
 async def create_character(
     current_user = Depends(
         require_admin
-    )
+    ),
 
     name: str = Form(...),
     slug: str = Form(...),
@@ -114,7 +114,7 @@ def delete_character(
     id: int,
     current_user = Depends(
         require_admin
-    )
+    ),
 ):
 
     db: Session = SessionLocal()
